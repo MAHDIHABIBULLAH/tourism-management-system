@@ -2,6 +2,33 @@
 {
     internal class Program
     {
+        private static List<Tour> tours = new List<Tour>();
+        private static string databaseFilePath = @"..\..\..\tourDatabase.txt";
+
+        public static void LoadDatabase()
+        {
+            using (StreamReader reader = new StreamReader(databaseFilePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] split = line.Split(",");
+                    tours.Add(new Tour(split[0], Convert.ToInt32(split[1]), split[2], split[3], split[4]));
+                }
+            }
+        }
+
+        public static void SaveDatabase()
+        {
+            using (StreamWriter writer = new StreamWriter(databaseFilePath))
+            {
+                foreach (Tour tour in tours)
+                {
+                    writer.WriteLine($"{tour.TourName},{tour.ParticipantCount},{tour.Region},{tour.Date},{tour.Time}");
+                }
+
+            }
+        }
         static void Main(string[] args)
         {
             string userInput;
