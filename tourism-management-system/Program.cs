@@ -1,4 +1,5 @@
-﻿namespace tourism_management_system
+﻿using ConsoleTables;
+namespace tourism_management_system
 {
     internal class Program
     {
@@ -29,6 +30,78 @@
 
             }
         }
+
+        public static void DisplayTourInformation()
+        {
+            Console.Clear();
+            ConsoleTable table = new ConsoleTable("Tour Name", "No. of Participants", "Region", "Date", "Time");
+            foreach (Tour tour in tours)
+            {
+                table.AddRow(tour.TourName, tour.ParticipantCount, tour.Region, tour.Date, tour.Time);
+            }
+            table.Write();
+        }
+
+        public static void TrackParticipantCount()
+        {
+            Console.Clear();
+            Console.Write("Enter tour name: ");
+            string tourName = Console.ReadLine();
+            Tour existingTour = tours.Find(tour => tour.TourName == tourName);
+            if (existingTour != null)
+            {
+                ConsoleTable table = new ConsoleTable("Tour Name", "No. of Participants", "Region", "Date", "Time");
+                table.AddRow(existingTour.TourName, existingTour.ParticipantCount, existingTour.Region, existingTour.Date, existingTour.Time);
+                Console.Write("Physically count the number of participants for the tour and enter: ");
+                int participantCount = Convert.ToInt32(Console.ReadLine());
+                if (participantCount == existingTour.ParticipantCount)
+                {
+                    Console.WriteLine("The participant count matches the database.");
+                }
+                else
+                {
+                    Console.WriteLine("Participant count mismatch. Please investigate and report to the stakeholders.");
+                    Console.WriteLine("After confirming with stakeholders update the actual participant count in the database.");
+                    Console.Write("Enter decision by stakeholders(YES/NO): ");
+                    string decision = Console.ReadLine().ToUpper();
+                    if (decision == "YES")
+                    {
+
+
+                        foreach (Tour tour in tours)
+                        {
+                            if (tour.TourName == tourName)
+                            {
+                                tour.ParticipantCount = participantCount;
+                                break;
+                            }
+                        }
+                        SaveDatabase();
+                        Console.WriteLine("The database has been updated.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("The stakeholders did not give permission to update the actual participants in the tour and postponed the tour.");
+                    }
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("The tour does not exist in the database. Ask the customers to check with reception.");
+            }
+        }
+
+        public static void MenuSystemDriver()
+        {
+            Console.WriteLine("Menu:");
+            Console.WriteLine("1. Display Tour Information");
+            Console.WriteLine("2. Track Participant Count");
+            Console.WriteLine("3. Generate Stakeholder Report");
+            Console.WriteLine("4. Exit");
+            Console.WriteLine("");
+            Console.Write("Enter your choice: ");
+        }
         static void Main(string[] args)
         {
             string userInput;
@@ -36,13 +109,7 @@
             LoadDatabase();
             do
             {
-                Console.WriteLine("Menu:");
-                Console.WriteLine("1. Display Tour Information");
-                Console.WriteLine("2. Track Participant Count");
-                Console.WriteLine("3. Generate Stakeholder Report");
-                Console.WriteLine("4. Exit");
-                Console.WriteLine("");
-                Console.Write("Enter your choice: ");
+                MenuSystemDriver();
                 userInput = Console.ReadLine();
                 while (!int.TryParse(userInput, out userChoice))
                 {
