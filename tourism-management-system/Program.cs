@@ -2,7 +2,23 @@
 {
     internal class Program
     {
-        static void Main()
+        static bool CheckCredentials(string position, string password)
+        {
+            switch (position.ToLower())
+            {
+                case "owner":
+                    return password == "ownerpassword";
+                case "receptionist":
+                    return password == "receptionistpassword";
+                case "driver":
+                    return password == "driverpassword";
+                case "photographer":
+                    return password == "photographerpassword";
+                default:
+                    return false;
+            }
+        }
+            static void Main()
         {
             Console.WriteLine("Select your position:");
             Console.WriteLine("1. Owner");
@@ -10,7 +26,8 @@
             Console.WriteLine("3. Driver");
             Console.WriteLine("4. Photographer");
 
-            int choice = int.Parse(Console.ReadLine());
+            int choice = Convert.ToInt32(Console.ReadLine());
+
 
             string position = Position(choice);
 
