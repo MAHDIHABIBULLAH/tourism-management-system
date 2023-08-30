@@ -1,4 +1,9 @@
-﻿using ConsoleTables;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net.Sockets;
+using ConsoleTables;
+
 namespace tourism_management_system
 {
     internal class Program
@@ -11,7 +16,7 @@ namespace tourism_management_system
             using (StreamReader reader = new StreamReader(databaseFilePath))
             {
                 string line;
-                while ((line = reader.ReadLine()) != null)
+                while ((line = reader.ReadLine() ?? string.Empty) != null)
                 {
                     string[] split = line.Split(",");
                     tours.Add(new Tour(split[0], Convert.ToInt32(split[1]), split[2], split[3], split[4]));
@@ -34,19 +39,14 @@ namespace tourism_management_system
         public static void DisplayTourInformation()
         {
             Console.Clear();
-            ConsoleTable table = new ConsoleTable("Tour Name", "No. of Participants", "Region", "Date", "Time");
-            foreach (Tour tour in tours)
-            {
-                table.AddRow(tour.TourName, tour.ParticipantCount, tour.Region, tour.Date, tour.Time);
-            }
-            table.Write();
+            Database();
         }
 
         public static void TrackParticipantCount()
         {
             Console.Clear();
             Console.Write("Enter tour name: ");
-            string tourName = Console.ReadLine();
+            string tourName = Console.ReadLine() ?? string.Empty;
             Tour existingTour = tours.Find(tour => tour.TourName == tourName);
             if (existingTour != null)
             {
@@ -63,11 +63,9 @@ namespace tourism_management_system
                     Console.WriteLine("Participant count mismatch. Please investigate and report to the stakeholders.");
                     Console.WriteLine("After confirming with stakeholders update the actual participant count in the database.");
                     Console.Write("Enter decision by stakeholders(YES/NO): ");
-                    string decision = Console.ReadLine().ToUpper();
+                    string decision = Console.ReadLine() ?? string.Empty.ToUpper();
                     if (decision == "YES")
                     {
-
-
                         foreach (Tour tour in tours)
                         {
                             if (tour.TourName == tourName)
@@ -84,12 +82,31 @@ namespace tourism_management_system
                         Console.WriteLine("The stakeholders did not give permission to update the actual participants in the tour and postponed the tour.");
                     }
                 }
-
             }
             else
             {
                 Console.WriteLine("The tour does not exist in the database. Ask the customers to check with reception.");
             }
+        }
+
+        public static void GenerateStakeHolderReport()
+        {
+            Console.Clear();
+            Console.WriteLine("Stakeholder Report");
+            Console.WriteLine("-------------------");
+            Console.WriteLine("Updated details of the tour with actual no. of participants.");
+            Database();
+           
+        }
+
+        public static void Database()
+        {
+            ConsoleTable table = new ConsoleTable("Tour Name", "No. of Participants", "Region", "Date", "Time");
+            foreach (Tour tour in tours)
+            {
+                table.AddRow(tour.TourName, tour.ParticipantCount, tour.Region, tour.Date, tour.Time);
+            }
+            table.Write();
         }
 
         public static void MenuSystemDriver()
@@ -110,11 +127,11 @@ namespace tourism_management_system
             do
             {
                 MenuSystemDriver();
-                userInput = Console.ReadLine();
+                userInput = Console.ReadLine() ?? string.Empty;
                 while (!int.TryParse(userInput, out userChoice))
                 {
                     Console.WriteLine("Invalid Selection. Please enter your choice again: ");
-                    userInput = Console.ReadLine();
+                    userInput = Console.ReadLine() ?? string.Empty; ;
                 }
                 switch (userChoice)
                 {
