@@ -28,6 +28,21 @@
 
             Console.ReadLine();
         }
-    }
+        static string Position(int choice)
+        {
+            switch (choice)
+            {
+                case 1:
+                    return "Owner";
+                case 2:
+                    return "Receptionist";
+                case 3:
+                    return "Driver";
+                case 4:
+                    return "Photographer";
+                default:
+                    return "";
+            }
+        }
     }
 }
