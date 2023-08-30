@@ -16,7 +16,7 @@ namespace tourism_management_system
             using (StreamReader reader = new StreamReader(databaseFilePath))
             {
                 string line;
-                while ((line = reader.ReadLine() ?? string.Empty) != null)
+                while ((line = reader.ReadLine()) != null)
                 {
                     string[] split = line.Split(",");
                     tours.Add(new Tour(split[0], Convert.ToInt32(split[1]), split[2], split[3], split[4]));
