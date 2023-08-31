@@ -61,6 +61,30 @@
 
 
             }
-        }
+            static void ShowAllData()
+            {
+                Console.WriteLine("All Data:");
+                string filePath = @"..\..\..\CustomerData.txt";
+
+                if (File.Exists(filePath))
+                {
+                    using (StreamReader sr = new StreamReader(filePath))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            string firstName = sr.ReadLine();
+                            string lastName = sr.ReadLine();
+
+                            Console.WriteLine($"First Name: {firstName}");
+                            Console.WriteLine($"Last Name: {lastName}");
+                            Console.WriteLine(); // Add an empty line for separation if desired
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("No customer data found.");
+                }
+            }
     }
 }
