@@ -47,6 +47,20 @@
 
                 Console.WriteLine();
             }
+            static void SaveData()
+            {
+                Console.Write("Enter a customer first name: ");
+                string firstname = Console.ReadLine();
+                Console.Write("Enter a customer last name: ");
+                string lastname = Console.ReadLine();
+                using (StreamWriter sw = new StreamWriter(@"..\..\..\CustomerData.txt"))
+                {
+                    sw.WriteLine(firstname);
+                    sw.WriteLine(lastname);
+                }
+
+
+            }
         }
     }
 }
