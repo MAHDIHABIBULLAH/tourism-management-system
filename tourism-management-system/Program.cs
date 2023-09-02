@@ -20,14 +20,18 @@
         }
             static void Main()
         {
-            Console.WriteLine("Select your position:");
-            Console.WriteLine("1. Owner");
-            Console.WriteLine("2. Receptionist");
-            Console.WriteLine("3. Driver");
-            Console.WriteLine("4. Photographer");
+            static int DisplayMenu()
+            {
+                Console.WriteLine("Select your position:");
+                Console.WriteLine("1. Owner");
+                Console.WriteLine("2. Receptionist");
+                Console.WriteLine("3. Driver");
+                Console.WriteLine("4. Photographer");
 
-            int choice = Convert.ToInt32(Console.ReadLine());
-
+                int choice = int.Parse(Console.ReadLine());
+                return choice;
+            }
+            int choice = DisplayMenu();
 
             string position = Position(choice);
 
@@ -45,6 +49,8 @@
 
             Console.ReadLine();
         }
+
+
         static string Position(int choice)
         {
             switch (choice)
