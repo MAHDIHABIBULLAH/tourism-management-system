@@ -49,21 +49,25 @@
             }
             static void SaveData()
             {
+                Console.Clear();
                 Console.Write("Enter a customer first name: ");
                 string firstname = Console.ReadLine();
                 Console.Write("Enter a customer last name: ");
                 string lastname = Console.ReadLine();
+                Console.Write("Enter a customer phone number: ");
+                int phoneNumber = Convert.ToInt32(Console.ReadLine());
+
                 using (StreamWriter sw = new StreamWriter(@"..\..\..\CustomerData.txt"))
                 {
                     sw.WriteLine(firstname);
                     sw.WriteLine(lastname);
+                    sw.WriteLine(phoneNumber);
                 }
-
-
             }
             static void ShowAllData()
             {
-                Console.WriteLine("All Data:");
+                Console.Clear();
+                Console.WriteLine("Customer Data:");
                 string filePath = @"..\..\..\CustomerData.txt";
 
                 if (File.Exists(filePath))
@@ -74,17 +78,23 @@
                         {
                             string firstName = sr.ReadLine();
                             string lastName = sr.ReadLine();
+                            int phoneNumber = Convert.ToInt32(sr.ReadLine());
 
                             Console.WriteLine($"First Name: {firstName}");
                             Console.WriteLine($"Last Name: {lastName}");
-                            Console.WriteLine(); // Add an empty line for separation if desired
+                            Console.WriteLine($"Phone Number: {phoneNumber}");
                         }
                     }
+                    
                 }
                 else
                 {
                     Console.WriteLine("No customer data found.");
                 }
+                Console.ReadLine();
             }
+
+        }
     }
 }
+
