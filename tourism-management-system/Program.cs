@@ -13,7 +13,7 @@
                 Console.WriteLine("2. Update Data");
                 Console.WriteLine("3. Remove Data");
                 Console.WriteLine("4. Show All Data");
-                Console.WriteLine("5. Exit");
+                Console.WriteLine("0. Exit");
                 Console.Write("Enter your choice: ");
 
                 int choice;
@@ -33,8 +33,8 @@
                         case 4:
                             ShowAllData();
                             break;
-                        case 5:
-
+                        case 0:
+                            Environment.Exit(0);
                             break;
                         default:
                             Console.WriteLine("Invalid choice. Please try again.");
@@ -58,7 +58,7 @@
                 Console.Write("Enter a customer phone number: ");
                 int phoneNumber = Convert.ToInt32(Console.ReadLine());
 
-                using (StreamWriter sw = new StreamWriter(customerDataFilePath))
+                using (StreamWriter sw = new StreamWriter(customerDataFilePath, true))
                 {
                     sw.WriteLine(firstname);
                     sw.WriteLine(lastname);
@@ -83,6 +83,7 @@
                             Console.WriteLine($"First Name: {firstName}");
                             Console.WriteLine($"Last Name: {lastName}");
                             Console.WriteLine($"Phone Number: {phoneNumber}");
+                            Console.WriteLine($"------------------------------------");
                         }
                     }
                     
