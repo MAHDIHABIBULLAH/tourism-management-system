@@ -6,12 +6,16 @@
         static Dictionary<string, string> data = new Dictionary<string, string>();
         static void Main(string[] args)
         {
+            managementSystemMenu();
+        }
+        static void managementSystemMenu()
+        {
             while (true)
             {
                 Console.WriteLine("Tourism Management System");
                 Console.WriteLine("1. Save Data");
                 Console.WriteLine("2. Update Data");
-                Console.WriteLine("4. Show All Data");
+                Console.WriteLine("3. Show All Data");
                 Console.WriteLine("0. Exit");
                 Console.Write("Enter your choice: ");
 
@@ -27,9 +31,6 @@
                             UpdateCustomer();
                             break;
                         case 3:
-
-                            break;
-                        case 4:
                             ShowAllData();
                             break;
                         case 0:
@@ -116,7 +117,7 @@
                             Console.Write("Enter new last name: ");
                             string newLastName = Console.ReadLine();
 
-                            Console.WriteLine("Enter new phone number");
+                            Console.Write("Enter new phone number");
                             int newPhoneNumber = Convert.ToInt32(Console.ReadLine());
                             sw.WriteLine(firstName);
                             sw.WriteLine(newLastName);
