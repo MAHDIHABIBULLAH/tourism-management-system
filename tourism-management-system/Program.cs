@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Sockets;
-using ConsoleTables;
 
 namespace tourism_management_system
 {
     internal class Program
     {
+
+        static bool CheckCredentials(string position, string password)
+
         private static List<Tour> tours = new List<Tour>();
         private static List<Tour> assignedTours = new List<Tour>();
         private static string databaseFilePath = @"..\..\..\tourDatabase.txt";
@@ -27,9 +29,25 @@ namespace tourism_management_system
         }
 
         public static void SaveDatabase()
+
         {
-            using (StreamWriter writer = new StreamWriter(databaseFilePath))
+            switch (position.ToLower())
             {
+
+                case "owner":
+                    return password == "ownerpassword";
+                case "receptionist":
+                    return password == "receptionistpassword";
+                case "driver":
+                    return password == "driverpassword";
+                case "photographer":
+                    return password == "photographerpassword";
+                default:
+                    return false;
+            }
+        }
+        static int DisplayMenu()
+
                 foreach (Tour tour in tours)
                 {
                     writer.WriteLine($"{tour.TourName},{tour.ParticipantCount},{tour.Region},{tour.Date},{tour.Time},{tour.ActualParticipantCount},{tour.VehicleAssigned}");
@@ -39,19 +57,33 @@ namespace tourism_management_system
         }
       
         public static void DisplayTourInformation()
+
         {
-            Console.Clear();
-            Database();
+            Console.WriteLine("Select your position:");
+            Console.WriteLine("1. Owner");
+            Console.WriteLine("2. Receptionist");
+            Console.WriteLine("3. Driver");
+            Console.WriteLine("4. Photographer");
+            int choice = int.Parse(Console.ReadLine());
+            return choice;
         }
 
-        public static void TrackParticipantCount()
+        static string Position(int choice)
         {
-            Console.Clear();
-            Console.Write("Enter tour name: ");
-            string tourName = Console.ReadLine() ?? string.Empty;
-            Tour existingTour = tours.Find(tour => tour.TourName == tourName);
-            if (existingTour != null)
+            switch (choice)
             {
+
+                case 1:
+                    return "Owner";
+                case 2:
+                    return "Receptionist";
+                case 3:
+                    return "Driver";
+                case 4:
+                    return "Photographer";
+                default:
+                    return "";
+
                 ConsoleTable table = new ConsoleTable("Tour Name", "No. of Participants", "Region", "Date", "Time", "Actual Participants");
                 table.AddRow(existingTour.TourName, existingTour.ParticipantCount, existingTour.Region, existingTour.Date, existingTour.Time, existingTour.ActualParticipantCount);
                 table.Write();
@@ -87,11 +119,19 @@ namespace tourism_management_system
             else
             {
                 Console.WriteLine("The tour does not exist in the database. Ask the customers to check with reception.");
+
             }
         }
-
-        public static void GenerateStakeHolderReport()
+        static void Main()
         {
+
+            int choice = DisplayMenu();
+
+            string position = Position(choice);
+
+            bool accessGranted = false;
+            while (!accessGranted)
+
             Console.Clear();
             Console.WriteLine("Stakeholder Report");
             Console.WriteLine("-------------------");
@@ -229,16 +269,24 @@ namespace tourism_management_system
             int userChoice;
             LoadDatabase();
             do
+
             {
-                MenuSystemDriver();
-                userInput = Console.ReadLine() ?? string.Empty;
-                while (!int.TryParse(userInput, out userChoice))
+                Console.WriteLine("Enter your password:");
+                string password = Console.ReadLine();
+
+                if (CheckCredentials(position, password))
                 {
-                    Console.WriteLine("Invalid Selection. Please enter your choice again: ");
-                    userInput = Console.ReadLine() ?? string.Empty; ;
+                    Console.WriteLine("Access granted.");
+                    accessGranted = true;
                 }
-                switch (userChoice)
+                else
                 {
+
+                    Console.WriteLine("Access denied.Please try again.");
+                }
+            }
+            Console.ReadLine();
+
                     case 1:
                         DisplayTourInformation();
                         break;
@@ -260,6 +308,7 @@ namespace tourism_management_system
                         break;
                 }
             } while (userChoice != 5);
+
         }
         static void Main(string[] args)
         {
