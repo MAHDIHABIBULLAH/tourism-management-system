@@ -94,7 +94,26 @@
                 }
                 Console.ReadLine();
             }
+            static void UpdateCustomer()
+            {
+                Console.Clear();
+                Console.WriteLine("Update Customer Data");
+                Console.Write("Enter the customer's first name to update: ");
+                string searchFirstName = Console.ReadLine();
+                string tempFile = Path.GetTempFileName();
+                bool updated = false;
 
+                using (StreamReader sr = new StreamReader(customerDataFilePath))
+                using (StreamWriter sw = new StreamWriter(tempFile))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        string firstName = sr.ReadLine();
+                        string lastName = sr.ReadLine();
+                        int phoneNumber = Convert.ToInt32(sr.ReadLine());
+                    }
+                }
+            }
         }
     }
 }
