@@ -12,7 +12,6 @@ namespace tourism_management_system
         private static List<Tour> tours = new List<Tour>();
         private static List<Tour> assignedTours = new List<Tour>();
         private static string databaseFilePath = @"..\..\..\tourDatabase.txt";
-        private static string assignedToursFilePath = @"..\..\..\assignedTours.txt";
 
         public static void LoadDatabase()
         {
