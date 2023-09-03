@@ -11,7 +11,6 @@
                 Console.WriteLine("Tourism Management System");
                 Console.WriteLine("1. Save Data");
                 Console.WriteLine("2. Update Data");
-                Console.WriteLine("3. Remove Data");
                 Console.WriteLine("4. Show All Data");
                 Console.WriteLine("0. Exit");
                 Console.Write("Enter your choice: ");
@@ -25,7 +24,7 @@
                             SaveData();
                             break;
                         case 2:
-
+                            UpdateCustomer();
                             break;
                         case 3:
 
@@ -111,10 +110,44 @@
                         string firstName = sr.ReadLine();
                         string lastName = sr.ReadLine();
                         int phoneNumber = Convert.ToInt32(sr.ReadLine());
+
+                        if (firstName == searchFirstName)
+                        {
+                            Console.Write("Enter new last name: ");
+                            string newLastName = Console.ReadLine();
+
+                            Console.WriteLine("Enter new phone number");
+                            int newPhoneNumber = Convert.ToInt32(Console.ReadLine());
+                            sw.WriteLine(firstName);
+                            sw.WriteLine(newLastName);
+                            sw.WriteLine(newPhoneNumber);
+
+                            updated = true;
+                        }
+                        else
+                        {
+                            sw.WriteLine(firstName);
+                            sw.WriteLine(lastName);
+                            sw.WriteLine(phoneNumber);
+                        }
                     }
                 }
+
+                if (updated)
+                {
+                    File.Delete(customerDataFilePath);
+                    File.Move(tempFile, customerDataFilePath);
+                    Console.WriteLine("Data updated successfully.");
+                }
+                else
+                {
+                    Console.WriteLine("Customer not found.");
+                }
             }
+
+
         }
     }
 }
+
 
