@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
-using ConsoleTables;
 
 namespace tourism_management_system
 {
@@ -24,38 +23,16 @@ namespace tourism_management_system
                     return false;
             }
         }
-            static void Main()
+        static int DisplayMenu()
         {
-            static int DisplayMenu()
-            {
-                Console.WriteLine("Select your position:");
-                Console.WriteLine("1. Owner");
-                Console.WriteLine("2. Receptionist");
-                Console.WriteLine("3. Driver");
-                Console.WriteLine("4. Photographer");
-
-                int choice = int.Parse(Console.ReadLine());
-                return choice;
-            }
-            int choice = DisplayMenu();
-
-            string position = Position(choice);
-
-            Console.WriteLine("Enter your password:");
-            string password = Console.ReadLine();
-
-            if (CheckCredentials(position, password))
-            {
-                Console.WriteLine("Access granted.");
-            }
-            else
-            {
-                Console.WriteLine("Access denied.");
-            }
-
-            Console.ReadLine();
+            Console.WriteLine("Select your position:");
+            Console.WriteLine("1. Owner");
+            Console.WriteLine("2. Receptionist");
+            Console.WriteLine("3. Driver");
+            Console.WriteLine("4. Photographer");
+            int choice = int.Parse(Console.ReadLine());
+            return choice;
         }
-
 
         static string Position(int choice)
         {
@@ -72,7 +49,30 @@ namespace tourism_management_system
                 default:
                     return "";
             }
-  
+        }
+        static void Main()
+        {
+            int choice = DisplayMenu();
+
+            string position = Position(choice);
+
+            bool accessGranted = false;
+            while (!accessGranted)
+            {
+                Console.WriteLine("Enter your password:");
+                string password = Console.ReadLine();
+
+                if (CheckCredentials(position, password))
+                {
+                    Console.WriteLine("Access granted.");
+                    accessGranted = true;
+                }
+                else
+                {
+                    Console.WriteLine("Access denied.Please try again.");
+                }
+            }
+            Console.ReadLine();
         }
     }
 }
