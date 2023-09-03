@@ -2,6 +2,7 @@
 {
     internal class Program
     {
+        private static string customerDataFilePath = @"..\..\..\CustomerData.txt";
         static Dictionary<string, string> data = new Dictionary<string, string>();
         static void Main(string[] args)
         {
@@ -57,7 +58,7 @@
                 Console.Write("Enter a customer phone number: ");
                 int phoneNumber = Convert.ToInt32(Console.ReadLine());
 
-                using (StreamWriter sw = new StreamWriter(@"..\..\..\CustomerData.txt"))
+                using (StreamWriter sw = new StreamWriter(customerDataFilePath))
                 {
                     sw.WriteLine(firstname);
                     sw.WriteLine(lastname);
@@ -68,11 +69,10 @@
             {
                 Console.Clear();
                 Console.WriteLine("Customer Data:");
-                string filePath = @"..\..\..\CustomerData.txt";
-
-                if (File.Exists(filePath))
+              
+                if (File.Exists(customerDataFilePath))
                 {
-                    using (StreamReader sr = new StreamReader(filePath))
+                    using (StreamReader sr = new StreamReader(customerDataFilePath))
                     {
                         while (!sr.EndOfStream)
                         {
