@@ -12,7 +12,6 @@ namespace tourism_management_system
         private static List<Tour> tours = new List<Tour>();
         private static List<Tour> assignedTours = new List<Tour>();
         private static string databaseFilePath = @"..\..\..\tourDatabase.txt";
-        private static string assignedToursFilePath = @"..\..\..\assignedTours.txt";
 
         public static void LoadDatabase()
         {
@@ -223,7 +222,8 @@ namespace tourism_management_system
             Console.WriteLine("");
             Console.Write("Enter your choice: ");
         }
-        static void Main(string[] args)
+
+        public static void Driver()
         {
             string userInput;
             int userChoice;
@@ -250,7 +250,7 @@ namespace tourism_management_system
                         break;
                     case 4:
                         RequestAdditionalVehicles();
-                    break;
+                        break;
                     case 5:
                         SaveDatabase();
                         Environment.Exit(0);
@@ -260,6 +260,10 @@ namespace tourism_management_system
                         break;
                 }
             } while (userChoice != 5);
+        }
+        static void Main(string[] args)
+        {
+            
         }
     }
 }
