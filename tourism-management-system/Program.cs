@@ -120,5 +120,25 @@ namespace tourism_management_system
                 }
             }
         }
+        static void Photographer()
+        {
+            Console.WriteLine("Please select and option");
+            Console.WriteLine("");
+            Console.WriteLine("1:\tPhotographer Util");
+            int userInput;
+            if (int.TryParse(Console.ReadLine(), out userInput))
+            {
+                Console.Clear();
+                switch (userInput)
+                {
+                    case 1:
+                        PhotographerUtil();
+                        break;
+                    case 0:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
+        }
     }
 }
