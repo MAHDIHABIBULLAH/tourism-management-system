@@ -22,6 +22,62 @@ namespace tourism_management_system
                 Console.WriteLine("4:\tPhotographer");
                 Console.WriteLine("5:\tCustomer");
                 Console.WriteLine("0:\tExit");
+                int userInput;
+                if (int.TryParse(Console.ReadLine(), out userInput))
+                {
+                    Console.Clear();
+                    switch (userInput)
+                    {
+                        case 1:
+                            Console.WriteLine("manager");
+                            Manager();
+                            break;
+                        case 2:
+                            Console.WriteLine("Receptionist");
+                            Receptionest();
+                            break;
+                        case 3:
+                            Console.WriteLine("Driver");
+                            Driver();
+                            break;
+                        case 4:
+                            Console.WriteLine("Photographer");
+                            Photographer();
+                            break;
+                        case 5:
+                            Console.WriteLine("Customer");
+                            Customer();
+                            break;
+                        case 0:
+                            Environment.Exit(0);
+                            break;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Please enter a valid input");
+                }
+            }
+        }
+        static void Manager()
+        {
+            Console.WriteLine("Please select and option");
+            Console.WriteLine("");
+            Console.WriteLine("1:\tFull report");
+            int userInput;
+            if (int.TryParse(Console.ReadLine(), out userInput))
+            {
+                Console.Clear();
+                switch (userInput)
+                {
+                    case 1:
+                        Console.WriteLine("manager util");
+                        ManagerUtil();
+                        break;
+                    case 0:
+                        Environment.Exit(0);
+                        break;
+                }
             }
         }
     }
