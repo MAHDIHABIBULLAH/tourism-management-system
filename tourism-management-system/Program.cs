@@ -140,5 +140,25 @@ namespace tourism_management_system
                 }
             }
         }
+        static void Customer()
+        {
+            Console.WriteLine("Please select and option");
+            Console.WriteLine("");
+            Console.WriteLine("1:\tCustomer util");
+            int userInput;
+            if (int.TryParse(Console.ReadLine(), out userInput))
+            {
+                Console.Clear();
+                switch (userInput)
+                {
+                    case 1:
+                        CustomerUtil();
+                        break;
+                    case 0:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
+        }
     }
 }
