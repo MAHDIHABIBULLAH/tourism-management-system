@@ -63,7 +63,7 @@ namespace tourism_management_system
         {
             Console.WriteLine("Please select and option");
             Console.WriteLine("");
-            Console.WriteLine("1:\tFull report");
+            Console.WriteLine("1:\tMangerUtil");
             int userInput;
             if (int.TryParse(Console.ReadLine(), out userInput))
             {
@@ -73,6 +73,26 @@ namespace tourism_management_system
                     case 1:
                         Console.WriteLine("manager util");
                         ManagerUtil();
+                        break;
+                    case 0:
+                        Environment.Exit(0);
+                        break;
+                }
+            }
+        }
+        static void Receptionest()
+        {
+            Console.WriteLine("Please select and option");
+            Console.WriteLine("");
+            Console.WriteLine("1:\tReceptionestUtil");
+            int userInput;
+            if (int.TryParse(Console.ReadLine(), out userInput))
+            {
+                Console.Clear();
+                switch (userInput)
+                {
+                    case 1:
+                        ReceptionestUtil();
                         break;
                     case 0:
                         Environment.Exit(0);
